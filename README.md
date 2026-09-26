@@ -49,6 +49,18 @@ Generated files are written to `data/`:
 
 Open `data/dashboard.html` in a browser to review the carrier and warehouse summaries.
 
+## Build and run with Docker
+
+The Spring Boot Maven plugin repackages the application as an executable JAR during the package phase.
+
+```powershell
+mvn clean package -DskipTests
+docker build -t supply-chain-analytics:1.0 .
+docker run --rm -p 8080:8080 supply-chain-analytics:1.0
+```
+
+Then open `http://localhost:8080/api/health` or query the API endpoints listed above.
+
 ## Optional PostgreSQL persistence
 
 The pipeline remains CSV-first by default. To persist raw shipments, configure these environment variables before running:
