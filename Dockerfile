@@ -1,8 +1,17 @@
+FROM maven:3.9.9-eclipse-temurin-17 AS build
+
+WORKDIR /build
+
+COPY pom.xml .
+COPY src ./src
+
+RUN mvn -B clean package -DskipTests
+
 FROM eclipse-temurin:17-jre
 
 WORKDIR /app
 
-COPY target/supplychain-analytics-1.0-SNAPSHOT.jar app.jar
+COPY --from=build /build/target/supplychain-analytics-1.0-SNAPSHOT.jar app.jar
 COPY data ./data
 
 EXPOSE 8080
