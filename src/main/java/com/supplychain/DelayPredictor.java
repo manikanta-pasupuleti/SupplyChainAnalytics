@@ -25,8 +25,7 @@ public class DelayPredictor {
             int proc = processingTime.get(i);
             double supp = supplierScore.get(i);
 
-            // Compute composite risk score (0.0 to 1.0)
-            double score = (dist / 2500.0) * 0.35 + (proc / 72.0) * 0.35 + (1.0 - supp) * 0.30;
+            double score = calculateRiskScore(dist, proc, supp);
             riskScoreCol.append(Math.round(score * 100.0) / 100.0);
         }
 
@@ -48,5 +47,13 @@ public class DelayPredictor {
         // Save prediction output for Dashboard / Reporting
         table.write().csv("data/supply_chain_predictions.csv");
         System.out.println("\nPrediction results saved to 'data/supply_chain_predictions.csv'");
+    }
+
+    public static double calculateRiskScore(double distanceKm, double processingTimeHours,
+                                            double supplierReliabilityScore) {
+        double score = (distanceKm / 2500.0) * 0.35
+                + (processingTimeHours / 72.0) * 0.35
+                + (1.0 - supplierReliabilityScore) * 0.30;
+        return Math.max(0.0, Math.min(1.0, score));
     }
 }

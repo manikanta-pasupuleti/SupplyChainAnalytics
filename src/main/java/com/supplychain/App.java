@@ -16,6 +16,10 @@ public class App {
             // Step 3: Run Delay Prediction ML Pipeline
             DelayPredictor.trainAndPredict(dataPath);
 
+            // Optional database persistence controlled by environment configuration.
+            DatabaseExporter.persistIfConfigured(dataPath);
+            DashboardGenerator.generate();
+
             System.out.println("\n[SUCCESS] End-To-End Java Pipeline Executed Successfully!");
         } catch (Exception e) {
             e.printStackTrace();
