@@ -12,6 +12,7 @@ An end-to-end Java 17 and Maven analytics platform for identifying carrier perfo
 - Produces CSV reports and an HTML dashboard.
 - Supports optional PostgreSQL persistence through JDBC.
 - Includes JUnit tests for the prediction engine.
+- Provides a Spring Boot REST API for dashboards and integrations.
 
 ## Run the pipeline
 
@@ -20,6 +21,23 @@ mvn clean compile
 mvn test
 mvn exec:java '-Dexec.mainClass=com.supplychain.App'
 ```
+
+## Run the REST API
+
+Generate the reports first, then start the API:
+
+```powershell
+mvn exec:java '-Dexec.mainClass=com.supplychain.App'
+mvn spring-boot:run -Dspring-boot.run.main-class=com.supplychain.SupplyChainApiApplication
+```
+
+Available endpoints:
+
+- `GET /api/health`
+- `GET /api/carriers`
+- `GET /api/warehouses/bottlenecks`
+- `GET /api/shipments/high-risk`
+- `GET /api/shipments/{order_id}`
 
 Generated files are written to `data/`:
 
