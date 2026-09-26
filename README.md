@@ -61,6 +61,15 @@ docker run --rm -p 8080:8080 supply-chain-analytics:1.0
 
 Then open `http://localhost:8080/api/health` or query the API endpoints listed above.
 
+For Render deployment, open **Environment → Environment Variables** and add:
+
+```text
+Key: PORT
+Value: 8080
+```
+
+The application uses port `8080` locally and reads Render's `PORT` value when deployed.
+
 ## Optional PostgreSQL persistence
 
 The pipeline remains CSV-first by default. To persist raw shipments, configure these environment variables before running:
