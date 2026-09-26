@@ -22,6 +22,20 @@ public class AnalyticsController {
         this.analyticsService = analyticsService;
     }
 
+    @GetMapping
+    public Map<String, Object> overview() {
+        return Map.of(
+                "service", "supply-chain-analytics",
+                "status", "UP",
+                "message", "Supply Chain Analytics API is running",
+                "endpoints", List.of(
+                        "/api/health",
+                        "/api/carriers",
+                        "/api/warehouses/bottlenecks",
+                        "/api/shipments/high-risk",
+                        "/api/shipments/{orderId}"));
+    }
+
     @GetMapping("/health")
     public Map<String, String> health() {
         return Map.of("status", "UP", "service", "supply-chain-analytics");
